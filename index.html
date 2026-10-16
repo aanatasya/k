@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>k</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            kaiti: ['DFKai-SB', 'BiauKai', 'STKaiti', 'KaiTi', 'KaiTi_GB2312', 'serif'],
+          },
+          colors: {
+            mono: {
+              50: '#f9f9f9',
+              100: '#f0f0f0',
+              200: '#e1e1e1',
+              300: '#cccccc',
+              400: '#969696',
+              500: '#666666',
+              600: '#474747',
+              700: '#333333',
+              800: '#1e1e1e',
+              900: '#121212',
+            }
+          },
+          animation: {
+            'bounce-slow': 'bounce 3s infinite',
+            'float': 'float 4s ease-in-out infinite',
+            'pulse-subtle': 'pulseSubtle 2s ease-in-out infinite',
+            'wiggle': 'wiggle 0.5s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseSubtle: {
+              '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+              '50%': { opacity: 0.85, transform: 'scale(1.02)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #f7f7f8;
+      background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    
+    .font-kaiti {
+        font-family: 'DFKai-SB', 'BiauKai', 'STKaiti', 'KaiTi', 'KaiTi_GB2312', serif;
+    }
+    
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #aaaaaa;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #666666;
+    }
+
+    .cute-card {
+      background: #ffffff;
+      border: 2px solid #1e1e1e;
+      box-shadow: 4px 4px 0px #1e1e1e;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .cute-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 6px 6px 0px #1e1e1e;
+    }
+
+    .cute-btn {
+      background: #1e1e1e;
+      color: #ffffff;
+      border: 2px solid #1e1e1e;
+      box-shadow: 3px 3px 0px #888888;
+      transition: all 0.15s ease;
+    }
+    .cute-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px #1e1e1e;
+      background: #333333;
+    }
+    .cute-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px #1e1e1e;
+    }
+
+    .cute-badge {
+      border: 1.5px solid #1e1e1e;
+      box-shadow: 2px 2px 0px #1e1e1e;
+    }
+
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 18px;
+      animation: floatUp 1s ease-out forwards;
+      z-index: 9999;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(1.3) rotate(20deg);
+      }
+    }
+  </style>
+</head>
+<body class="font-sans text-mono-900 selection:bg-mono-900 selection:text-white min-h-screen pb-16 pt-6 px-4 sm:px-6">
+
+  <!-- Container Utama -->
+  <div class="max-w-3xl mx-auto space-y-8">
+
+    <!-- HEADER / HERO SECTION -->
+    <header class="cute-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+      <div class="absolute top-3 right-4 opacity-10 text-4xl select-none pointer-events-none">✨ 🐾 🎮 ☕</div>
+      <div class="absolute bottom-2 left-4 opacity-10 text-3xl select-none pointer-events-none">🎧 💻 🤍 🥐</div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-6 relative z-10">
+        <div class="relative group">
+          <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full border-4 border-mono-900 overflow-hidden bg-mono-200 shadow-[4px_4px_0px_#1e1e1e] transition-transform duration-300 group-hover:rotate-3">
+            <img 
+              src="uwi.jpeg" 
+              alt="Profile Photo" 
+              class="w-full h-full object-cover grayscale contrast-125"
+              onerror="this.src='https://placehold.co/300x300/1e1e1e/ffffff?text=(+=%E2%80%A2%E1%B4%A5%E2%80%A2=+)'"
+            />
+          </div>
+          <span class="absolute -bottom-1 -right-1 bg-white text-mono-900 text-xs px-2.5 py-1 rounded-full border-2 border-mono-900 font-fredoka shadow-sm animate-bounce-slow">
+            🐾 Meong!
+          </span>
+        </div>
+
+        <div class="flex-1 text-center sm:text-left space-y-2">
+          <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <span class="cute-badge bg-mono-100 text-xs px-2.5 py-0.5 rounded-full font-fredoka text-mono-800">
+              錢包比我未來還要乾净啊md
+            </span>
+            <span id="currentMoodBadge" class="cute-badge bg-black text-white text-xs px-2.5 py-0.5 rounded-full font-fredoka">
+              😊 Mood: server down, otak jangan diping
+            </span>
+          </div>
+
+          <h1 class="text-base sm:text-base font-bold tracking-wide leading-relaxed">
+            <span class="font-kaiti">你好! 像一個月餅一樣,又甜又圓</span> <span class="underline decoration-wavy decoration-mono-400 font-kaiti">我是陳圓 !</span> <span class="font-kaiti">🖤</span>
+          </h1>
+          
+          <p class="text-mono-600 text-sm sm:text-sm leading-relaxed">
+            Manusia yg dengerin musik 24/7,  kalo pesen 飲料 wajib 全糖全冰 alias 都正常,  eh kadang kopi kadang matcha, kadang kidding,  bye ☕✨
+          </p>
+
+          <div class="pt-2 flex flex-wrap justify-center sm:justify-start gap-2 text-xs font-fredoka">
+            <span class="cute-badge bg-mono-100 px-3 py-1 rounded-xl">✨ nabung kagak jajan iya </span>
+            <span class="cute-badge bg-mono-100 px-3 py-1 rounded-xl">🎮 atlet rebahan internasional</span>
+            <span class="cute-badge bg-mono-100 px-3 py-1 rounded-xl">🥤 loading 404</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: ABOUT ME -->
+    <section class="cute-card rounded-3xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center gap-2 border-b-2 border-mono-200 pb-3">
+        <i class="fa-solid fa-sparkles text-xl"></i>
+        <h2 class="font-fredoka text-2xl font-bold">人類使用説明書😒</h2>
+      </div>
+
+      <p class="text-mono-700 text-sm sm:text-base leading-relaxed">
+        Selamat datang di web yang gak seberapa ini, yang dulu ngiranya masuk 資管 bisa ngalahin Steve Jobs(ketinggian kan mimpi mu wahai anak muda)
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+        <div class="cute-card p-3 rounded-2xl text-center bg-mono-50">
+          <div class="text-2xl mb-1">☸</div>
+          <p class="font-fredoka text-xs font-semibold">Dana Paramita</p>
+          <span class="text-[10px] text-mono-500">rezeki ngalir, dompet kering</span>
+        </div>
+        <div class="cute-card p-3 rounded-2xl text-center bg-mono-50">
+          <div class="text-2xl mb-1">🏸</div>
+          <p class="font-fredoka text-xs font-semibold">Badminton</p>
+          <span class="text-[10px] text-mono-500">yang penting kepukul bola</span>
+        </div>
+        <div class="cute-card p-3 rounded-2xl text-center bg-mono-50">
+          <div class="text-2xl mb-1">🎧</div>
+          <p class="font-fredoka text-xs font-semibold">Music</p>
+          <span class="text-[10px] text-mono-500">galau jalur mandiri</span>
+        </div>
+        <div class="cute-card p-3 rounded-2xl text-center bg-mono-50">
+          <div class="text-2xl mb-1">☸️</div>
+          <p class="font-fredoka text-xs font-semibold">pengikut Bodhisattva</p>
+          <span class="text-[10px] text-mono-500">sabar </span>
+        </div>
+      </div>
+
+      <div class="mt-4 bg-mono-100 border-2 border-mono-900 rounded-2xl p-4 relative">
+        <span class="absolute -top-3 left-4 bg-mono-900 text-white text-[11px] font-fredoka px-2.5 py-0.5 rounded-full">
+          📌 Fun Facts Unik
+        </span>
+        <ul class="text-xs sm:text-sm text-mono-700 space-y-1.5 pt-1 list-disc list-inside">
+          <li>tidur wajib pakai earphone🎵</li>
+          <li>sibuk mikirin kenapa nasi goreng namanya nasi goreng padahal digorengnya pake wajan bukan pake nasi, ehh🍚</li>
+          <li>suka beli stiker lucu tapi gak pernah ditempel karena takut stikernya nangis kalau dipisahin dari kertasnya🙈</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 2: MY SKILLS & FAVORITES -->
+    <section class="cute-card rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center gap-2 border-b-2 border-mono-200 pb-3">
+        <i class="fa-solid fa-heart text-xl"></i>
+        <h2 class="font-fredoka text-2xl font-bold">Skills & Favorite Things 🤍</h2>
+      </div>
+
+      <div class="space-y-4">
+        <h3 class="font-fredoka text-sm font-semibold text-mono-600 uppercase tracking-wider">── Skillset Level ──</h3>
+        
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs font-fredoka">
+            <span>kapasitas otak sehari-hari</span>
+            <span class="text-mono-500">12% (gatau)</span>
+          </div>
+          <div class="w-full bg-mono-200 h-3.5 rounded-full border-2 border-mono-900 overflow-hidden p-0.5">
+            <div class="bg-mono-900 h-full rounded-full transition-all duration-1000" style="width: 88%"></div>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs font-fredoka">
+            <span>kesabaran</span>
+            <span class="text-mono-500">0,001% (yg kenal tau lah)</span>
+          </div>
+          <div class="w-full bg-mono-200 h-3.5 rounded-full border-2 border-mono-900 overflow-hidden p-0.5">
+            <div class="bg-mono-800 h-full rounded-full transition-all duration-1000" style="width: 75%"></div>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs font-fredoka">
+            <span>level mager duniawi</span>
+            <span class="text-mono-500">99% (menembus batas nirvana, eakk)</span>
+          </div>
+          <div class="w-full bg-mono-200 h-3.5 rounded-full border-2 border-mono-900 overflow-hidden p-0.5">
+            <div class="bg-mono-700 h-full rounded-full transition-all duration-1000" style="width: 82%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-2">
+        <h3 class="font-fredoka text-sm font-semibold text-mono-600 uppercase tracking-wider">── 你們kepo我喜歡什麽啊 ──</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-fredoka">
+          <span class="cute-badge bg-mono-900 text-white px-3 py-1.5 rounded-full">☕ 飲料(全糖全冰)</span>
+          <span class="cute-badge bg-mono-100 text-mono-900 px-3 py-1.5 rounded-full">🌙 overthinking</span>
+          <span class="cute-badge bg-mono-100 text-mono-900 px-3 py-1.5 rounded-full">🐈 uwiii (kucing oren)</span>
+          <span class="cute-badge bg-mono-100 text-mono-900 px-3 py-1.5 rounded-full">🎮 jajan trosssss</span>
+          <span class="cute-badge bg-mono-100 text-mono-900 px-3 py-1.5 rounded-full">🎧 菲道爾 & Jannabi💕</span>
+          <span class="cute-badge bg-mono-100 text-mono-900 px-3 py-1.5 rounded-full">🫕火鍋!!!!!</span>
+          <span class="cute-badge bg-mono-100 text-mono-900 px-3 py-1.5 rounded-full">😴睡覺</span>
+          <span class="cute-badge bg-mono-100 text-mono-900 px-3 py-1.5 rounded-full">🍴每天吃學餐的清真(krema)😮</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE FUN ZONE -->
+    <section class="cute-card rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center justify-between border-b-2 border-mono-200 pb-3">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-gamepad text-xl"></i>
+          <h2 class="font-fredoka text-2xl font-bold">其實不重要🕹️</h2>
+        </div>
+        <span class="text-xs bg-mono-100 px-2.5 py-1 rounded-full font-fredoka border border-mono-400">JANGAN DIKLIK!</span>
+      </div>
+
+      <div class="space-y-3">
+        <label class="font-fredoka text-sm font-semibold block text-mono-800">
+          1. 靈魂即時更新 : 
+        </label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-fredoka">
+          <button onclick="setMood('😊 Mood: stagnan.', 'stagnan. 🙄', event)" class="cute-card p-2.5 rounded-xl hover:bg-mono-100 active:scale-95 text-center">
+            😒 stagnan.
+          </button>
+          <button onclick="setMood('⚡ Mood: overdrive.', 'overdrive.🔥', event)" class="cute-card p-2.5 rounded-xl hover:bg-mono-100 active:scale-95 text-center">
+            ⚡ overdrive.
+          </button>
+          <button onclick="setMood('😴 Mood: fading out', 'fading out☕', event)" class="cute-card p-2.5 rounded-xl hover:bg-mono-100 active:scale-95 text-center">
+            😴 fading out
+          </button>
+          <button onclick="setMood('🎧 Mood: on mute', 'In The Zone 🎧', event)" class="cute-card p-2.5 rounded-xl hover:bg-mono-100 active:scale-95 text-center">
+            🎧 on mute
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-3 pt-4 border-t border-mono-200">
+        <label class="font-fredoka text-sm font-semibold block text-mono-800">
+          2. 隨便寫 terserah mau ngapain✨
+        </label>
+        <p class="text-xs text-mono-500">aturlah dek, abang baca aja nya</p>
+
+        <!-- Form Anonymous Chat -->
+        <form id="noteForm" onsubmit="addNote(event)" class="space-y-3">
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input 
+              type="text" 
+              id="noteInput" 
+              placeholder="terserah lek atur lah " 
+              required
+              maxlength="80"
+              class="flex-1 px-4 py-2.5 rounded-xl border-2 border-mono-900 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-mono-400 font-sans"
+            />
+            <button type="submit" class="cute-btn px-6 py-2.5 rounded-xl font-fredoka text-xs sm:text-sm whitespace-nowrap">
+              🥷 kirim
+            </button>
+          </div>
+          <p class="text-[10px] text-mono-500 font-fredoka">💡 aman lek anonim ini (terhubung online real-time).</p>
+        </form>
+
+        <!-- Anonymous Chat Room Zone -->
+        <div class="mt-4 p-4 bg-mono-100 border-2 border-mono-900 rounded-3xl space-y-3">
+          <div class="flex items-center justify-between border-b border-mono-300 pb-2">
+            <span class="text-xs font-fredoka font-bold text-mono-900">🥷 Chat Room Real-Time</span>
+            <span class="text-[10px] bg-mono-900 text-white px-2 py-0.5 rounded-full font-fredoka">Online Firebase</span>
+          </div>
+
+          <!-- Area Bubble Chat -->
+          <div id="chatRoom" class="space-y-3 max-h-60 overflow-y-auto pr-1">
+            <!-- Pesan Default Anonymous / Sambutan -->
+            <div class="flex flex-col items-start space-y-1">
+              <span class="text-[10px] font-bold text-mono-500 font-sans pl-2">🥷 Anonymous #001</span>
+              <div class="cute-card bg-white px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-xs font-fredoka border-2 border-mono-900 shadow-[3px_3px_0px_#1e1e1e]">
+                "Halo! Selamat datang di ruang pesan rahasia web ini. Coba ketik sesuatu di atas ya! 🖤✨"
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SOCIALS & CONTACT -->
+    <section class="cute-card rounded-3xl p-6 sm:p-8 text-center space-y-6">
+      <div class="space-y-2">
+        <h2 class="font-fredoka text-2xl font-bold">klo msi kepo kelen, klik ini aja💌</h2>
+        <p class="text-mono-600 text-xs sm:text-sm">
+          yg dibawah bisa diklik kalau gabut, mau follow ya silahkan, liat-liat juga bebas lek, mksh 
+        </p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 font-fredoka text-xs sm:text-sm">
+        <a href="https://www.instagram.com/09nat.au?vrfl=MXcxd2w3bDU2MHNiZg==" target="_blank" onclick="createHearts(event)" class="cute-btn px-4 py-2.5 rounded-full flex items-center gap-2">
+          <i class="fa-brands fa-instagram text-base"></i> Instagram
+        </a>
+        <a href="https://open.spotify.com/user/31iudyrozef3kcptlz5dkuluxue4?si=RZukpur6TLCmpi2wTkq4ag&utm_source=copy-link" target="_blank" onclick="createHearts(event)" class="cute-btn px-4 py-2.5 rounded-full flex items-center gap-2">
+          <i class="fa-brands fa-spotify text-base"></i> Spotify
+        </a>
+        <a href="https://www.linkedin.com/in/aulia-anatasya-tanjaya-22444a287?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" onclick="createHearts(event)" class="cute-btn px-4 py-2.5 rounded-full flex items-center gap-2">
+          <i class="fa-brands fa-linkedin text-base"></i> LinkedIn
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs font-fredoka text-mono-500 space-y-1">
+      <p>Dibuat karena gabut, tanpa rencana, tanpa tujuan, ok bye.</p>
+      <p class="text-[10px] text-mono-400">© 2024-PRESENT autan😴.</p>
+    </footer>
+
+  </div>
+
+  <!-- FIREBASE SDK & SCRIPT REAL-TIME DATABASE -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+    // ⬇️ MASUKKAN KONFIGURASI FIREBASE MILIKMU DI SINI ⬇️
+    const firebaseConfig = {
+      apiKey: "isi_dengan_apiKey_kamu",
+      authDomain: "anon-chat-a3db8.firebaseapp.com",
+      databaseURL: "https://anon-chat-a3db8-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "anon-chat-a3db8",
+      storageBucket: "anon-chat-a3db8.appspot.com",
+      messagingSenderId: "isi_dengan_senderId_kamu",
+      appId: "isi_dengan_appId_kamu"
+    };
+
+    // Inisialisasi Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const chatRef = db.ref('messages');
+
+    // MENDENGARKAN PESAN SECARA REAL-TIME DARI DATABASE ONLINE
+    chatRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      const chatRoom = document.getElementById('chatRoom');
+      if (!chatRoom) return;
+
+      chatRoom.innerHTML = '';
+      const now = new Date().getTime();
+      const twentyFourHours = 24 * 60 * 60 * 1000;
+
+      if (!data) {
+        chatRoom.innerHTML = `
+          <div class="flex flex-col items-start space-y-1">
+            <span class="text-[10px] font-bold text-mono-500 font-sans pl-2">🥷 Anonymous #001</span>
+            <div class="cute-card bg-white px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-xs font-fredoka border-2 border-mono-900 shadow-[3px_3px_0px_#1e1e1e]">
+              "Belum ada pesan nih, yuk kirim pesan rahasia pertama kamu! 🖤✨"
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      Object.keys(data).forEach(key => {
+        const msg = data[key];
+        if ((now - msg.time) < twentyFourHours) {
+          const chatDiv = document.createElement('div');
+          chatDiv.className = 'flex flex-col items-start space-y-1 animate-float';
+          chatDiv.innerHTML = `
+            <span class="text-[10px] font-bold text-mono-600 font-sans pl-2">${escapeHtml(msg.name)}</span>
+            <div class="cute-card bg-white px-4 py-2.5 rounded-2xl rounded-tl-none max-w-[85%] text-xs font-fredoka border-2 border-mono-900 shadow-[3px_3px_0px_#1e1e1e]">
+              "${escapeHtml(msg.text)}"
+            </div>
+          `;
+          chatRoom.appendChild(chatDiv);
+        } else {
+          // Hapus pesan jika sudah lewat 24 jam
+          db.ref('messages/' + key).remove();
+        }
+      });
+
+      chatRoom.scrollTop = chatRoom.scrollHeight;
+    });
+
+    // FUNGSI KIRIM PESAN KE FIREBASE
+    function addNote(event) {
+      event.preventDefault();
+      const noteInput = document.getElementById('noteInput');
+      const text = noteInput.value.trim();
+
+      if (!text) return;
+
+      const randomId = Math.floor(Math.random() * 900) + 100;
+      const anonName = `🥷 Anonymous #${randomId}`;
+
+      chatRef.push({
+        name: anonName,
+        text: text,
+        time: firebase.database.ServerValue.TIMESTAMP
+      });
+
+      noteInput.value = '';
+      createHearts(event);
+      showToast("Pesan berhasil terkirim ke publik! 🥷✨");
+    }
+
+    // Fungsi untuk mengubah badge mood
+    function setMood(newMoodText, notificationText, event) {
+      const badge = document.getElementById('currentMoodBadge');
+      badge.textContent = newMoodText;
+      
+      if (event) createHearts(event);
+      showToast("Mood diubah ke: " + notificationText);
+    }
+
+    // Toast Notification sederhana
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 bg-mono-900 text-white px-4 py-2 rounded-full text-xs font-fredoka shadow-lg z-50 transition-all duration-300 border border-white';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 2000);
+    }
+
+    // Particle FX (Hearts/Stars on Click)
+    function createHearts(e) {
+      const icons = ['🤍', '✨', '🐾', '🖤', '⭐'];
+      const x = e.clientX || window.innerWidth / 2;
+      const y = e.clientY || window.innerHeight / 2;
+
+      for (let i = 0; i < 5; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.textContent = icons[Math.floor(Math.random() * icons.length)];
+        
+        const offsetX = (Math.random() - 0.5) * 40;
+        particle.style.left = `${x + offsetX}px`;
+        particle.style.top = `${y}px`;
+        
+        document.body.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 1000);
+      }
+    }
+
+    // Helper for escaping HTML
+    function escapeHtml(string) {
+      return String(string).replace(/[&<>"']/g, function (s) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[s];
+      });
+    }
+  </script>
+</body>
+</html>
